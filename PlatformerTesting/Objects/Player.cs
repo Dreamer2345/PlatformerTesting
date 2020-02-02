@@ -9,7 +9,7 @@ namespace PlatformerTesting.Objects
 {
     class Player : DynamicObject
     {
-        const float MaxHorizontalSpeed = 3;
+        const float MaxHorizontalSpeed = 10;
         public Player(Vector2 Position, Rectangle CollisionBox)
         {
             GetCollider = CollisionBox;
@@ -21,47 +21,68 @@ namespace PlatformerTesting.Objects
             spriteBatch.Draw(Globals.box, Collider, Color.Blue);
         }
 
-        bool HitLeftWall = false;
-        bool HitRightWall = false;
-        bool Grounded = false;
+
+        bool CollidedUp = false;
+        bool CollidedDown = false;
+        bool CollidedLeft = false;
+        bool CollidedRight = false;
+
 
         public override void OnCollide(DynamicObject obj)
         {
+            CollidedLeft = false;
+            CollidedRight = false;
+            CollidedUp = false;
+            CollidedDown = false;
             if (obj is Terrain)
             {
 
-                if (Acceleration.X != 0)
+                Rectangle Overlap = Rectangle.Intersect(obj.GetCollider, GetCollider);
+
+                float PercentX = 0;
+                float PercentY = 0;
+
+                PercentX = (float)Overlap.Width / (float)obj.GetCollider.Width;
+                PercentY = (float)Overlap.Height / (float)obj.GetCollider.Height;
+
+
+                if (PercentX > PercentY)
                 {
-                    GetPosition += new Vector2(-Acceleration.X, 0);
-                    
-                    if (Acceleration.X > 0)
+                    if (obj.GetCollider.Center.X < GetCollider.X)
                     {
-                        HitRightWall = true;
+                        Acceleration.X = Math.Max(Acceleration.X, 0);
+                        CollidedRight = true;
+
                     }
                     else
                     {
-                        HitLeftWall = true;
+                        Acceleration.X = Math.Min(Acceleration.X, 0);
+                        CollidedLeft = true;
                     }
-
-                    Acceleration.X = 0;
                 }
-
-                float halfHeight = obj.GetCollider.Height / 2;
-                float halfHeightMe = GetCollider.Height / 2;
-
-                float DistY = (float)Math.Abs(obj.GetCollider.Center.Y - GetCollider.Center.Y);
-                float DistValY = halfHeight + halfHeightMe;
-
-
-                if (DistY < DistValY)
+                else
                 {
-                    float diff = (float)Math.Abs(DistValY - DistY);
-                    GetPosition = new Vector2(GetPosition.X, GetPosition.Y - (diff));
-                    Acceleration *= new Vector2(1, 0);
+                    if (obj.GetCollider.Center.Y < GetCollider.Y)
+                    {
+                        Acceleration.Y = Math.Max(Acceleration.Y, 0);
+                        CollidedUp = true;
+                    }
+                    else
+                    {
+                        Acceleration.Y = Math.Min(Acceleration.Y, 0);
+                        CollidedDown = true;
+                    }
                 }
 
-                
-                Grounded = true;
+                if(PercentX < PercentY)
+                    GetPosition -= new Vector2(0, Overlap.Height);
+                else
+                    if(CollidedRight)
+                        GetPosition -= new Vector2(Overlap.Width, 0);
+                    else
+                        GetPosition += new Vector2(Overlap.Width, 0);
+                Console.WriteLine(PercentX + ":" + PercentY);
+
             }
         }
 
@@ -69,29 +90,27 @@ namespace PlatformerTesting.Objects
 
         public override void Update(float Delta)
         {
-            if (!Grounded)
+            if (!CollidedDown)
             {
-                HitLeftWall = false;
-                HitRightWall = false;
-                Acceleration += new Vector2(0, 6f) * Delta;
+                Acceleration += new Vector2(0, 0.5f);
             }
 
-            if (Globals.keyBoard.IsClicked(Keys.Space) && Grounded)
+            if (Globals.keyBoard.IsClicked(Keys.Space) && CollidedDown)
             {
-                Acceleration += new Vector2(0, -5);
-                Grounded = false;
+                Acceleration += new Vector2(0, -20);
+                CollidedDown = false;
             }
 
             bool Moving = false;
-            if (Globals.keyBoard.Current.IsKeyDown(Keys.D))
+            if (Globals.keyBoard.Current.IsKeyDown(Keys.D) && !CollidedRight)
             {
-                Acceleration += new Vector2(3, 0);
+                Acceleration += new Vector2(5, 0);
                 Moving = true;
             }
 
-            if (Globals.keyBoard.Current.IsKeyDown(Keys.A))
+            if (Globals.keyBoard.Current.IsKeyDown(Keys.A) && !CollidedLeft)
             {
-                Acceleration += new Vector2(-3, 0);
+                Acceleration += new Vector2(-5, 0);
                 Moving = true;
             }
 
@@ -110,17 +129,16 @@ namespace PlatformerTesting.Objects
                 Acceleration.X = normalised.X * MaxHorizontalSpeed;
             }
 
+            
             base.Update(Delta);
 
-            Globals.camera.Position = position;
-        }
-
-        public override void AfterUpdate(float Delta)
-        {
-            if (!objectHandler.CheckPoint(this, new Vector2(Collider.Y, Collider.Bottom)) && !objectHandler.CheckPoint(this, new Vector2(Collider.Right, Collider.Bottom)) && (Grounded == true))
+            if (!objectHandler.CheckPoint(this, new Vector2(GetCollider.Center.X, GetCollider.Bottom + 2)) && !objectHandler.CheckPoint(this, new Vector2(GetCollider.Right, GetCollider.Bottom + 2)) && !objectHandler.CheckPoint(this, new Vector2(GetCollider.Left, GetCollider.Bottom + 2)))
             {
-                Grounded = false;
+                CollidedDown = false;
             }
+
+
+            Globals.camera.Position = position;
         }
     }
 }

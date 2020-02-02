@@ -15,7 +15,7 @@ namespace PlatformerTesting.ObjectUtils.BaseObjectTypes
 
         public override void Update(float Delta)
         {
-            GetPosition += Acceleration;
+            GetPosition += Acceleration * Delta * 10;
         }
         public virtual void OnCollide(DynamicObject collided) { }
     }

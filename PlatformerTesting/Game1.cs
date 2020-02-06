@@ -48,10 +48,14 @@ namespace PlatformerTesting
             Globals.box = Content.Load<Texture2D>("InventoryIcon");
 
 
-            objectHandler.Add(new Player(new Vector2(100, -50), new Rectangle(0, 0, 16, 16)));
+            objectHandler.Add(new Player(new Vector2(100, -150), new Rectangle(0, 0, 16, 32)));
 
-            objectHandler.Add(new Terrain(new Vector2(0, -100), new Rectangle(0, 0, 16, 100)));
-            objectHandler.Add(new Terrain(new Vector2(0, -16), new Rectangle(0, 0, 100, 16)));
+            for (int i = 0; i<15; i++)
+                for (int j = 0; j < 25; j++)
+                    if (i % 2 == 0)
+                        if (j % 4 == 0)
+                            objectHandler.Add(new DestructableTerrain(new Vector2(i*10, j*-16), new Rectangle(0, 0, 16, 16)));
+            
             objectHandler.Add(new Terrain(new Vector2(0, 0), new Rectangle(0, 0, 1000, 16)));
             base.LoadContent();
         }

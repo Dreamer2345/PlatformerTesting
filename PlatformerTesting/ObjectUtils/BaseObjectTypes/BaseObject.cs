@@ -14,7 +14,7 @@ namespace PlatformerTesting.ObjectUtils.BaseObjectTypes
                 objectHandler = obj;
         }
 
-        private bool Destroyed = false;
+        protected bool Destroyed = false;
         public bool GetDestroyed { get => Destroyed; set => Destroyed = value; }
 
         protected Vector2 position;

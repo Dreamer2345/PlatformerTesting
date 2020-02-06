@@ -42,7 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="Objects\DestructableTerrain.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Projectile.cs" />
+    <Compile Include="ObjectUtils\BaseObjectTypes\RigidPhysicsObject.cs" />
     <Compile Include="Objects\Terrain.cs" />
     <Compile Include="ObjectUtils\BaseObjectTypes\BaseObject.cs" />
     <Compile Include="ObjectUtils\BaseObjectTypes\DynamicObject.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="Utils\Camera.cs" />
     <Compile Include="Utils\Globals.cs" />
     <Compile Include="Utils\KeyboardExtention.cs" />
+    <Compile Include="Utils\TimerClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

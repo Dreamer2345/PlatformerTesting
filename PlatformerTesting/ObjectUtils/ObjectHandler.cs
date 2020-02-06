@@ -55,7 +55,7 @@ namespace PlatformerTesting.Objects
 
             for (int i = 0; i < Objects.Count; i++)
             {
-                for (int j = i; j < Objects.Count; j++)
+                for (int j = 0; j < Objects.Count; j++)
                 {
                     if (i != j)
                     {

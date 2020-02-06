@@ -4,6 +4,9 @@ namespace PlatformerTesting.ObjectUtils.BaseObjectTypes
 {
     class DynamicObject : BaseObject
     {
+
+        public bool IsCollidable = true;
+
         protected Vector2 Acceleration;
         protected float Mass = 1;
         protected Rectangle Collider;

@@ -46,7 +46,7 @@ namespace PlatformerTesting
             objectHandler = new ObjectHandler();
             Globals.camera = new Camera(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             Globals.box = Content.Load<Texture2D>("InventoryIcon");
-
+            Globals.font = Content.Load<SpriteFont>("Font");
 
             objectHandler.Add(new Player(new Vector2(100, -150), new Rectangle(0, 0, 16, 32)));
 
@@ -55,8 +55,11 @@ namespace PlatformerTesting
                     if (i % 2 == 0)
                         if (j % 4 == 0)
                             objectHandler.Add(new DestructableTerrain(new Vector2(i*10, j*-16), new Rectangle(0, 0, 16, 16)));
-            
-            objectHandler.Add(new Terrain(new Vector2(0, 0), new Rectangle(0, 0, 1000, 16)));
+
+            objectHandler.Add(new MovingPlatform(new Vector2(300, -16), new Vector2(1000,-16),10, new Rectangle(0, 0, 64, 16)));
+            objectHandler.Add(new MovingPlatform(new Vector2(1000, -32), new Vector2(300, -32), 10, new Rectangle(0, 0, 64, 16)));
+
+            objectHandler.Add(new Terrain(new Vector2(0, 0), new Rectangle(0, 0, 500, 16)));
             base.LoadContent();
         }
 

@@ -34,6 +34,24 @@ namespace PlatformerTesting.Objects
             return false;
         }
 
+        public DynamicObject GetPoint(DynamicObject Checker, Vector2 Pos)
+        {
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                if (Objects[i] is DynamicObject)
+                {
+                    if (Objects[i] != Checker)
+                    {
+                        if (((DynamicObject)Objects[i]).GetCollider.Contains(Pos))
+                            return (DynamicObject)Objects[i];
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
         public void Update(float delta)
         {
             for (int i = 0; i < Objects.Count; i++)

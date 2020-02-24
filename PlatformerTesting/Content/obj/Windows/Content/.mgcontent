@@ -4,9 +4,11 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/New/Desktop/Games Testing/PlatformerTesting/PlatformerTesting/Content/File.spritefont</File>
     <File>C:/Users/New/Desktop/Games Testing/PlatformerTesting/PlatformerTesting/Content/InventoryIcon.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>Font.spritefont</File>
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

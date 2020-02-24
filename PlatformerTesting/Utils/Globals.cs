@@ -12,5 +12,6 @@ namespace PlatformerTesting.Utils
         public static KeyboardExtention keyBoard = new KeyboardExtention();
         public static Camera camera;
         public static Texture2D box;
+        public static SpriteFont font;
     }
 }

@@ -21,3 +21,4 @@ C:\Users\New\Desktop\Games Testing\PlatformerTesting\PlatformerTesting\obj\x86\D
 C:\Users\New\Desktop\Games Testing\PlatformerTesting\PlatformerTesting\obj\x86\Debug\PlatformerTesting.pdb
 C:\Users\New\Desktop\Games Testing\PlatformerTesting\PlatformerTesting\obj\x86\Debug\PlatformerTesting.csprojAssemblyReference.cache
 C:\Users\New\Desktop\Games Testing\PlatformerTesting\PlatformerTesting\obj\x86\Debug\PlatformerTesting.csproj.CopyComplete
+C:\Users\New\Desktop\Games Testing\PlatformerTesting\PlatformerTesting\bin\Windows\x86\Debug\Content\Font.xnb

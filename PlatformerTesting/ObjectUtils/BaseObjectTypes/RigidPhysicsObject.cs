@@ -30,7 +30,7 @@ namespace PlatformerTesting.Objects
 
         public void PreUpdate(float Delta)
         {
-            PreviousAcceleration = Acceleration;
+            PreviousAcceleration = Accelleration;
             PreviousPos = GetPosition;
             PreviousCollider = GetCollider;
 
@@ -46,7 +46,7 @@ namespace PlatformerTesting.Objects
 
         public override void Update(float Delta)
         {
-            GetPosition += (Acceleration / 2 + PreviousAcceleration / 2) * Delta * 10;
+            GetPosition += (Accelleration / 2 + PreviousAcceleration / 2) * Delta * 10;
 
             if (HasGrav)
             {
@@ -61,7 +61,7 @@ namespace PlatformerTesting.Objects
         {
             if (GetCollider.Right > obj.GetCollider.Left && PreviousCollider.Right <= obj.GetCollider.Left)
             {
-                Acceleration.X = 0;
+                Accelleration.X = 0;
                 position.X = obj.GetPosition.X - GetCollider.Width - 0.01f;
                 CollidedLastFrame = true;
                 return true;
@@ -73,7 +73,7 @@ namespace PlatformerTesting.Objects
         {
             if (GetCollider.Left < obj.GetCollider.Right && PreviousCollider.Left >= obj.GetCollider.Right)
             {
-                Acceleration.X = 0;
+                Accelleration.X = 0;
                 position.X = obj.GetPosition.X + obj.GetCollider.Width + 0.01f;
                 return true;
             }
@@ -84,7 +84,7 @@ namespace PlatformerTesting.Objects
         {
             if(GetCollider.Top < obj.GetCollider.Bottom && PreviousCollider.Top >= obj.GetCollider.Bottom)
             {
-                Acceleration.Y = 0;
+                Accelleration.Y = 0;
                 position.Y = obj.GetPosition.Y + obj.GetCollider.Height;
                 return true;
             }
@@ -95,7 +95,7 @@ namespace PlatformerTesting.Objects
         {
             if (GetCollider.Bottom > obj.GetCollider.Top && PreviousCollider.Bottom >= obj.GetCollider.Top)
             {
-                Acceleration.Y = 0;
+                Accelleration.Y = 0;
                 position.Y = obj.GetPosition.Y - GetCollider.Height - 0.5f;
                 return true;
             }
